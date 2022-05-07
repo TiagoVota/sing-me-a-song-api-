@@ -1,11 +1,20 @@
 {
-  "name": "typescript-back-template",
+  "name": "sing-me-a-song-api",
   "version": "1.0.0",
   "type": "module",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "dev": "nodemon src/server.ts"
+    "start": "node ./dist/src/server.js",
+    "start:dev": "node ./src/server.ts",
+    "start:watch": "npx nodemon ./src/server.ts",
+    "start:prod": "NODE_ENV=production node ./src/server.ts",
+    "test": "NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -i",
+		"test:watch": "dotenv -e .env.test nodemon src/server.ts",
+    "git:update": "git add . && git status",
+    "prisma:view-db": "npx prisma studio",
+    "prisma:format": "npx prisma format",
+    "prisma:migrate": "npx prisma migrate dev"
   },
   "keywords": [],
   "author": "",
@@ -17,9 +26,13 @@
     "@types/jest": "^27.5.0",
     "@types/joi": "^17.2.3",
     "@types/node": "^16.3.3",
+		"@prisma/client": "^3.13.0",
+		"@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
     "@types/supertest": "^2.0.11",
+		"eslint": "^8.14.0",
+		"husky": "^7.0.4",
     "dotenv-cli": "^5.1.0",
-    "eslint": "^7.32.0",
     "jest": "^28.0.3",
     "nodemon": "^2.0.12",
     "prisma": "^3.13.0",
@@ -29,7 +42,6 @@
     "typescript": "^4.6.4"
   },
   "dependencies": {
-    "@prisma/client": "^3.13.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
