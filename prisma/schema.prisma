@@ -18,3 +18,10 @@ model Recommendation {
 
   @@map("recommendations")
 }
+
+model Health {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  @@map("health")
+}

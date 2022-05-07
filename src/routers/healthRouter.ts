@@ -1,9 +1,10 @@
 import { Router } from 'express'
+import * as healthController from '../controllers/healthController.js'
 
 
 const healthRouter = Router()
 
-healthRouter.get('', (_, res) => res.status(200).send('I\'m alive!'))
+healthRouter.get('', healthController.checkHealth)
 
 
 export default healthRouter
