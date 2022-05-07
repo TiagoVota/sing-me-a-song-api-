@@ -6,12 +6,16 @@
   "main": "server.js",
   "scripts": {
     "start": "node ./dist/src/server.js",
-    "start:dev": "node ./src/server.ts",
-    "start:watch": "npx nodemon ./src/server.ts",
     "start:prod": "NODE_ENV=production node ./src/server.ts",
-    "test": "NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -i",
-		"test:watch": "dotenv -e .env.test nodemon src/server.ts",
+    "start:dev": "node ./src/server.ts",
+    "start:test": "NODE_ENV=test node ./src/server.ts",
+    "start:watch": "npx nodemon ./src/server.ts",
+
+    "test": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest -i",
+		"test:watch": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest --watch -i",
+
     "git:update": "git add . && git status",
+
     "prisma:view-db": "npx prisma studio",
     "prisma:format": "npx prisma format",
     "prisma:migrate": "npx prisma migrate dev"
@@ -32,7 +36,6 @@
     "@types/supertest": "^2.0.11",
 		"eslint": "^8.14.0",
 		"husky": "^7.0.4",
-    "dotenv-cli": "^5.1.0",
     "jest": "^28.0.3",
     "nodemon": "^2.0.12",
     "prisma": "^3.13.0",
