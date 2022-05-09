@@ -152,29 +152,3 @@ describe('Recommendations Service - downvote', () => {
 		await expect(result).resolves.toBeUndefined()
 	})
 })
-
-
-describe('Recommendations Service - getScoreFilter', () => {
-	beforeEach(() => {
-		jest.clearAllMocks()
-		jest.resetAllMocks()
-	})
-
-	it('should return gt for random < 0.7', () => {
-		const result = sut.getScoreFilter(0.69)
-
-		expect(result).toEqual('gt')
-	})
-
-	it('should return lte for random > 0.7', () => {
-		const result = sut.getScoreFilter(0.71)
-
-		expect(result).toEqual('lte')
-	})
-
-	it('should return lte for random = 0.7', () => {
-		const result = sut.getScoreFilter(0.7)
-
-		expect(result).toEqual('lte')
-	})
-})
