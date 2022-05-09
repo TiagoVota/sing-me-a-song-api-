@@ -10,12 +10,9 @@
     "start:dev": "node ./src/server.ts",
     "start:test": "NODE_ENV=test node ./src/server.ts",
     "start:watch": "npx nodemon ./src/server.ts",
-
     "test": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest -i",
-		"test:watch": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest --watch -i",
-
+    "test:watch": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest --watch -i",
     "git:update": "git add . && git status",
-
     "prisma:view-db": "npx prisma studio",
     "prisma:format": "npx prisma format",
     "prisma:migrate": "npx prisma migrate dev"
@@ -24,18 +21,19 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^6.3.1",
+    "@prisma/client": "^3.13.0",
     "@types/cors": "^2.8.12",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.13",
     "@types/jest": "^27.5.0",
     "@types/joi": "^17.2.3",
     "@types/node": "^16.3.3",
-		"@prisma/client": "^3.13.0",
-		"@typescript-eslint/eslint-plugin": "^5.21.0",
-    "@typescript-eslint/parser": "^5.21.0",
     "@types/supertest": "^2.0.11",
-		"eslint": "^8.14.0",
-		"husky": "^7.0.4",
+    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "eslint": "^8.14.0",
+    "husky": "^7.0.4",
     "jest": "^28.0.3",
     "nodemon": "^2.0.12",
     "prisma": "^3.13.0",

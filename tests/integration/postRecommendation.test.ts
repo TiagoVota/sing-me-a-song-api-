@@ -7,7 +7,8 @@ import prisma from '../../src/database/database.js'
 
 import {
 	createRecommendation,
-	findRecommendationById,
+	findRecommendationByName,
+	validBodyFactory,
 } from '../factories/recommendationsFactory.js'
 
 
@@ -17,9 +18,9 @@ describe('POST /recommendations', () => {
 	})
 
 	it('should return 422 for invalid body', async () => {
-		const invalidBody = {
-			youtubeLink: 'https://www.youtube.com/watch?v=chwyjJbcs1Y'
-		}
+		const invalidBody = validBodyFactory()
+		delete invalidBody.name
+		delete invalidBody.score
 
 		const response = await supertest(app)
 			.post('/recommendations')
@@ -30,27 +31,23 @@ describe('POST /recommendations', () => {
 	})
 
 	it('should return 201 for valid body', async () => {
-		const body = {
-			name: 'Falamansa - Xote dos Milagres',
-			youtubeLink: 'https://www.youtube.com/watch?v=chwyjJbcs1Y'
-		}
+		const body = validBodyFactory()
+		delete body.score
 
 		const response = await supertest(app)
 			.post('/recommendations')
 			.send(body)
 		const { status } = response
 
-		const recommendation = findRecommendationById(body.name)
+		const recommendation = findRecommendationByName(body.name)
 
 		expect(status).toEqual(201)
 		expect(recommendation).not.toBeNull()
 	})
 
 	it('should return 409 for conflict body', async () => {
-		const body = {
-			name: 'Falamansa - Xote dos Milagres',
-			youtubeLink: 'https://www.youtube.com/watch?v=chwyjJbcs1Y'
-		}
+		const body = validBodyFactory()
+		delete body.score
 
 		await createRecommendation(body)
 

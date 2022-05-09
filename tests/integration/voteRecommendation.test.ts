@@ -7,7 +7,8 @@ import prisma from '../../src/database/database.js'
 
 import {
 	createRecommendation,
-	findRecommendationById,
+	findRecommendationByName,
+	generateRecommendationId,
 } from '../factories/recommendationsFactory.js'
 
 
@@ -17,7 +18,7 @@ describe('POST /recommendations/:id/upvote', () => {
 	})
 
 	it('should return 404 for not found id', async () => {
-		const invalidRecommendationId = 5485343
+		const invalidRecommendationId = generateRecommendationId()
 
 		const response = await supertest(app)
 			.post(`/recommendations/${invalidRecommendationId}/upvote`)
@@ -34,7 +35,7 @@ describe('POST /recommendations/:id/upvote', () => {
 			.post(`/recommendations/${validId}/upvote`)
 		const { status } = response
 
-		const increasedRecommendation = await findRecommendationById(name)
+		const increasedRecommendation = await findRecommendationByName(name)
 		const increasedScore = increasedRecommendation.score
 
 		expect(status).toEqual(200)
@@ -49,7 +50,7 @@ describe('POST /recommendations/:id/downvote', () => {
 	})
 
 	it('should return 404 for not found id', async () => {
-		const invalidRecommendationId = 5485343
+		const invalidRecommendationId = generateRecommendationId()
 
 		const response = await supertest(app)
 			.post(`/recommendations/${invalidRecommendationId}/upvote`)
@@ -66,7 +67,7 @@ describe('POST /recommendations/:id/downvote', () => {
 			.post(`/recommendations/${validId}/downvote`)
 		const { status } = response
 
-		const decreasedRecommendation = await findRecommendationById(name)
+		const decreasedRecommendation = await findRecommendationByName(name)
 		const decreasedScore = decreasedRecommendation.score
 
 		expect(status).toEqual(200)
@@ -76,14 +77,14 @@ describe('POST /recommendations/:id/downvote', () => {
 	it('should return 200 for decrease recommendation and delete score -5', async () => {
 		const minScore = -5
 
-		const recommendation = await createRecommendation(undefined, minScore)
+		const recommendation = await createRecommendation({ score: minScore })
 		const { id: validId, name } = recommendation
 
 		const response = await supertest(app)
 			.post(`/recommendations/${validId}/downvote`)
 		const { status } = response
 
-		const deletedRecommendation = await findRecommendationById(name)
+		const deletedRecommendation = await findRecommendationByName(name)
 
 		expect(status).toEqual(200)
 		expect(deletedRecommendation).toBeNull()
