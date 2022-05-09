@@ -8,6 +8,6 @@ const findAll = async () => {
 }
 
 
-export {
+export const healthRepository = {
 	findAll,
 }

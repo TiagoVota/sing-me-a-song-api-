@@ -1,4 +1,4 @@
-import * as healthRepository from '../repositories/healthRepository.js'
+import { healthRepository } from '../repositories/healthRepository.js'
 
 import { badRequestError } from '../utils/errorUtils.js'
 
@@ -20,4 +20,10 @@ const getHealthOrFail = async () => {
 
 export {
 	getHealth,
+	getHealthOrFail,
+}
+
+export const healthService = {
+	getHealth,
+	getHealthOrFail,
 }
