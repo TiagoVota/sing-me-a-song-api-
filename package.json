@@ -12,6 +12,7 @@
     "start:watch": "npx nodemon ./src/server.ts",
     "test": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest -i",
     "test:watch": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest --watch -i",
+		"test:coverage": "npm run test -- --coverage",
     "git:update": "git add . && git status",
     "prisma:view-db": "npx prisma studio",
     "prisma:format": "npx prisma format",

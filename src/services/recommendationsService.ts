@@ -90,4 +90,5 @@ export const recommendationService = {
 	get,
 	getById: getByIdOrFail,
 	getTop,
+	getScoreFilter,
 }
