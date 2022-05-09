@@ -58,7 +58,7 @@ describe('POST /recommendations/:id/downvote', () => {
 		expect(status).toEqual(404)
 	})
 
-	it('should return 200 for increment recommendation', async () => {
+	it('should return 200 for decrease recommendation', async () => {
 		const recommendation = await createRecommendation()
 		const { id: validId, name, score } = recommendation
 
@@ -71,6 +71,22 @@ describe('POST /recommendations/:id/downvote', () => {
 
 		expect(status).toEqual(200)
 		expect(decreasedScore).toBeLessThan(score)
+	})
+
+	it('should return 200 for decrease recommendation and delete score -5', async () => {
+		const minScore = -5
+
+		const recommendation = await createRecommendation(undefined, minScore)
+		const { id: validId, name } = recommendation
+
+		const response = await supertest(app)
+			.post(`/recommendations/${validId}/downvote`)
+		const { status } = response
+
+		const deletedRecommendation = await findRecommendationById(name)
+
+		expect(status).toEqual(200)
+		expect(deletedRecommendation).toBeNull()
 	})
 })
 

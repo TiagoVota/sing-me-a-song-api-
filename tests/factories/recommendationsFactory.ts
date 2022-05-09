@@ -5,13 +5,15 @@ import {
 } from '../../src/services/recommendationsService'
 
 
-const createRecommendation = async (body?: CreateRecommendationData) => {
+const createRecommendation = async (body?: CreateRecommendationData, score?: number) => {
 	const defaultBody = {
 		name: 'Falamansa - Xote dos Milagres',
 		youtubeLink: 'https://www.youtube.com/watch?v=chwyjJbcs1Y'
 	}
 
 	const validBody = body ?? defaultBody
+
+	if (score) validBody['score'] = score
 
 	const recommendation = await prisma.recommendation.create({
 		data: validBody,
